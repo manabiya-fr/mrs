@@ -2,6 +2,8 @@ include make/Makefile.inc
 
 ZENSICAL := zensical
 
+FIGS_GEN_DIR := src/mrs/figs
+
 .PHONY: serve build clean
 
 ## Serve site locally
@@ -14,7 +16,7 @@ build: clean
 
 ## Generate figures
 generate-figures:
-	@make -C misc/figures generate-example-figure deploy
+	@make -C $(FIGS_GEN_DIR) generate-example-figure generate-rot-sequences deploy
 
 ## Clean site
 clean:
