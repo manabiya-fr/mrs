@@ -15,6 +15,7 @@ nav = [
   { "Home" = "index.md" },
   { "Notes" = [
   { "Gauss' principle" = "gauss_principle.md" },
+  { "Rotations" = "rotations.md" },
   { "Figures" = "example_figure.md" }
   ]}
 ]
