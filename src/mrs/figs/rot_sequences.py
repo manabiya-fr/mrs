@@ -44,13 +44,17 @@ def show_seq_rot(
         (stage, 0) if isinstance(stage, RotationMatrix) else stage for stage in stages
     ]
 
+    label_offset = 1.1
     for stage, offset_x in stages_with_offsets:
         offset = [offset_x, 0, 0]
         if ax is None:
-            ax = stage.plot(offset)
+            ax = stage.plot(offset, label_offset=label_offset)
         else:
-            stage.plot(offset, ax=ax)
+            stage.plot(offset, label_offset=label_offset, ax=ax)
 
+        if label_offset is not None:
+            ax.text(-0.1, 0, -0.2, r"$\Sigma_0$", size=14)
+        label_offset = None  # show the labels only for the first frame
     return ax
 
 
