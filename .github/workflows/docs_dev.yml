@@ -19,7 +19,7 @@ jobs:
           cache: 'pip'
 
       - name: Setup TeX Live (xelatex + PGF support)
-        uses: TeX-Live/setup-texlive-action@v3
+        uses: TeX-Live/setup-texlive-action@v4
         with:
           packages: |
             scheme-basic
