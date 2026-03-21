@@ -20,4 +20,6 @@ generate-figures:
 
 ## Clean site
 clean:
-	@rm -rf site
+	@rm -rf site src/mrs.egg-info
+	@find . -type d -name ".ipynb_checkpoints" -exec rm -rf {} +
+	@find . -type d -name "__pycache__" -exec rm -rf {} +
