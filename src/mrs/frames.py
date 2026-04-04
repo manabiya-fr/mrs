@@ -1,11 +1,24 @@
 from __future__ import annotations
 
+
 import numpy as np
+
 
 from mrs.vizu import FramePainterMixin
 
+import matplotlib.pyplot as plt
+import math
 
-class Frame: ...
+
+class Frame:
+    """A class to link the rotation matrix and position vector to visualisation"""
+
+    def __init__(self, r, R):
+        self.r = r
+        self.R = R
+
+    def plot(self):
+        self.R.plot(self.r)
 
 
 class RotationMatrix(FramePainterMixin):
