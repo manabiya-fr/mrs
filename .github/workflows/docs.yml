@@ -1,0 +1,82 @@
+name: Official website
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.x'
+          cache: 'pip'
+
+      - name: Setup TeX Live (xelatex + PGF support)
+        uses: TeX-Live/setup-texlive-action@v4
+        with:
+          packages: |
+            scheme-basic
+            xetex
+            pgf
+            fontspec
+            unicode-math
+            lmodern
+            cm-super
+            xcolor
+            graphics
+            tools
+            underscore
+            type1cm
+            standalone
+            tikz
+          cache: true
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pdf2svg
+          pip install zensical uv
+          uv venv
+          uv pip install -e .
+
+      - name: Build site
+        run: |
+          make generate-figures
+          zensical build --clean
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: built-site
+          path: site/
+          retention-days: 1
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/download-artifact@v8
+        with:
+          name: built-site
+          path: site/
+
+      - name: Deploy for Cloudflare
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          publish_branch: gh-pages-official
+          force_orphan: true
+          commit_message: |
+            Deploy web preview from ${{ github.ref_name }}
+            ${{ github.event.head_commit.message }}
