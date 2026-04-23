@@ -21,4 +21,6 @@ made: how to write documentation, what formulation/algorithms to use, how to vis
 our system, code structure, testing, etc. Depending on the people involved, this project
 might go in various directions ...
 
-The DEV documentation is available [here](https://mrs-docs.pages.dev/) (it is still only a skeleton).
+Online documentation:
++ [Official](https://mrs-docs-official.pages.dev)
++ [DEV](https://mrs-docs.pages.dev).
